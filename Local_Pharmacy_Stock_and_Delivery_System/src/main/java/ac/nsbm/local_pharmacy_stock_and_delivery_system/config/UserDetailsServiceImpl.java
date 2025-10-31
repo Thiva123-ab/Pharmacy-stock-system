@@ -1,4 +1,3 @@
-
 package ac.nsbm.local_pharmacy_stock_and_delivery_system.config;
 
 import ac.nsbm.local_pharmacy_stock_and_delivery_system.entity.AppUser;
