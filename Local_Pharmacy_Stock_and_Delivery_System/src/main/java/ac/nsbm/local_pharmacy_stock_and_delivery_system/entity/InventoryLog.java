@@ -16,7 +16,12 @@ public class InventoryLog {
     @ManyToOne
     private Medicine medicine;
 
-    private Integer changeQty; // positive or negative
+    private Integer changeQty;
+
+    private String batchNumber;
+    private String expiryDate;
+    private String supplier;
+    private String movementType; // IN, OUT, ADJUSTMENT, EXPIRED
 
     private String note;
 
