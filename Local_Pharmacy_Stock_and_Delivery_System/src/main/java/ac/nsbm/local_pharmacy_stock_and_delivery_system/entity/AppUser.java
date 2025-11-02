@@ -21,13 +21,33 @@ public class AppUser {
     private String email;
 
     @NotBlank
-    private String password; // store hashed password
+    private String password;
 
     @NotBlank
     private String name;
 
+    // Fields used for Customer Profile / Customer Management
     private String phone;
+    private String address;
+    private String dateOfBirth;
+    private String status;
+    private Integer totalOrders = 0;
+
+    // Fields primarily used for Delivery Person
+    private String vehicleType;
+    private String vehicleNumber;
+
+    private String avatarUrl;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public @NotBlank String getFirstName(){
+        return this.name;
+    }
+
+    public @NotBlank String getLastName()
+    {
+        return this.name;
+    }
 }
