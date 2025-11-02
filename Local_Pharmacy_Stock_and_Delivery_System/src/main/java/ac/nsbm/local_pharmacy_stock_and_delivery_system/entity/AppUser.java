@@ -26,12 +26,12 @@ public class AppUser {
     @NotBlank
     private String name; // Used for First Name + Last Name concatenation
 
-    // Fields used for Customer Profile / Customer Management
+
     private String phone;
     private String address;
-    private String dateOfBirth; //
-    private String status; //
-    private Integer totalOrders = 0; // Used for customer stats
+    private String dateOfBirth;
+    private String status;
+    private Integer totalOrders = 0;
 
     // Fields primarily used for Delivery Person
     private String vehicleType;
