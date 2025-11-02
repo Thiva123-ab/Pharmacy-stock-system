@@ -41,8 +41,6 @@ public class UserController {
 
         return ResponseEntity.ok(Map.of("success", true, "message", "Password updated successfully"));
     }
-
-    // POST /api/users/avatar (Used by avatar.js)
     @PostMapping("/avatar")
     public ResponseEntity<?> uploadAvatar(@RequestBody Map<String, String> avatarData) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
