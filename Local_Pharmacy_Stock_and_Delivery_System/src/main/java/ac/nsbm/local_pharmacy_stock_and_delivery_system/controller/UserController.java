@@ -31,8 +31,7 @@ public class UserController {
         return ResponseEntity.ok(Map.of("success", true, "message", "Profile updated successfully"));
     }
 
-    // PUT /api/users/change-password (Used by settings.js)
-    @PutMapping("/change-password")
+        @PutMapping("/change-password")
     public ResponseEntity<?> changePassword(@Valid @RequestBody PasswordChangeDTO dto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
