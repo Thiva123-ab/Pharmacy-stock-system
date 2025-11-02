@@ -20,11 +20,11 @@ public class Medicine {
 
     private String brand;
     private String genericName;
+    private String category;
+    private String description;
 
     @DecimalMin("0.0")
     private Double priceLKR;
 
     private Integer quantity;
-
-    private String description;
 }

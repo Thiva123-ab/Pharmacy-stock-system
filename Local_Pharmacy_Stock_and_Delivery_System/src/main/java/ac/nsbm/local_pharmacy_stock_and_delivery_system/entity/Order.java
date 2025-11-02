@@ -17,9 +17,12 @@ public class Order {
     @ManyToOne
     private AppUser customer;
 
+    private String customerName;
+    private String deliveryAddress;
+
     private Double totalAmount;
 
-    private String status; // PENDING, CONFIRMED, OUT_FOR_DELIVERY, DELIVERED
+    private String status;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
