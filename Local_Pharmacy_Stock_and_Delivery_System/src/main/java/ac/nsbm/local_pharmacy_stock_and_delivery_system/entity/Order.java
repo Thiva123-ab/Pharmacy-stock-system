@@ -1,5 +1,6 @@
 package ac.nsbm.local_pharmacy_stock_and_delivery_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference; // <-- IMPORT THIS
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -26,6 +27,8 @@ public class Order {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items;
 }

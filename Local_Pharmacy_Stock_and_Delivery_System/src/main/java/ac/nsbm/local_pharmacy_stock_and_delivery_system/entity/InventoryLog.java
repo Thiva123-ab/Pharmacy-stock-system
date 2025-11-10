@@ -21,7 +21,7 @@ public class InventoryLog {
     private String batchNumber;
     private String expiryDate;
     private String supplier;
-    private String movementType; // IN, OUT, ADJUSTMENT, EXPIRED
+    private String movementType;
 
     private String note;
 
