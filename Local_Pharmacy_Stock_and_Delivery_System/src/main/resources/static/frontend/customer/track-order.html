@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - PharmaCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h2>PharmaCare</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Customer</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="browse-medicines.html" class="nav-item">
+            <i class="fas fa-pills"></i>
+            <span>Browse Medicines</span>
+        </a>
+        <a href="my-orders.html" class="nav-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>My Orders</span>
+        </a>
+        <a href="prescriptions.html" class="nav-item">
+            <i class="fas fa-file-prescription"></i>
+            <span>My Prescriptions</span>
+        </a>
+        <a href="track-order.html" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Track Order</span>
+        </a>
+        <a href="feedback.html" class="nav-item">
+            <i class="fas fa-star"></i>
+            <span>Feedback</span>
+        </a>
+        <a href="notifications.html" class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1>Track Your Order</h1>
+            <p class="date">Real-time delivery tracking</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 80px; right: 30px; z-index: 1001; transition: all 0.5s ease-in-out;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-search"></i> Track Order</h2>
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <input type="text" id="order-id-input" class="form-control" placeholder="Enter Order ID (e.g., 1, 2, 3...)" style="flex: 1; padding: 12px 15px;">
+            <button class="quick-action-btn blue" id="track-btn">
+                <i class="fas fa-search"></i>
+                <span>Track</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="card" id="tracking-details" style="display: none;">
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-list"></i> Your Active Orders</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="active-orders-tbody">
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 40px;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 15px; color: #666;">Loading active orders...</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/track-order.js"></script>
+<script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>
