@@ -32,7 +32,7 @@ function showAlert(message, type = 'error') {
 
     if (!alertBox || !alertMessage || !alertIcon) {
         console.error('Alert elements not found');
-        alert(message);
+        alert(message); // Fallback
         return;
     }
 
@@ -61,7 +61,7 @@ function showAlert(message, type = 'error') {
     }, 5000);
 }
 
-
+// --- NEW: Format currency as LKR ---
 function formatCurrencyLKR(value) {
     if (value == null) value = 0;
     return new Intl.NumberFormat('en-LK', {
@@ -71,7 +71,7 @@ function formatCurrencyLKR(value) {
     }).format(value);
 }
 
-
+// --- NEW: Load Dashboard Data ---
 async function loadDashboardData() {
     try {
         const response = await apiRequest(API_CONFIG.ENDPOINTS.GET_PHARMACIST_DASHBOARD, {
@@ -87,12 +87,13 @@ async function loadDashboardData() {
             document.getElementById('pending-deliveries-stat').textContent = data.pendingDeliveries != null ? data.pendingDeliveries : 0;
             document.getElementById('total-revenue-stat').textContent = formatCurrencyLKR(data.totalRevenue);
 
-
+            // Note: Trend data is mocked, so we leave it as is.
+            // document.getElementById('total-orders-trend').textContent = ...;
 
             // Update Recent Orders Table
             displayRecentOrders(data.recentOrders || []);
 
-
+            // Update Recent Activity List
             displayRecentActivity(data.recentOrders || []);
 
         } else {
@@ -106,6 +107,7 @@ async function loadDashboardData() {
     }
 }
 
+// --- NEW: Display Error State ---
 function displayError() {
     document.getElementById('total-orders-stat').textContent = 'N/A';
     document.getElementById('medicines-stock-stat').textContent = 'N/A';
@@ -115,7 +117,7 @@ function displayError() {
     document.getElementById('recent-activity-list').innerHTML = `<div style="text-align: center; color: red; padding: 20px;">Could not load activity.</div>`;
 }
 
-
+// --- NEW: Render Recent Orders Table ---
 function displayRecentOrders(orders) {
     const tbody = document.getElementById('recent-orders-tbody');
     if (orders.length === 0) {
@@ -140,7 +142,7 @@ function displayRecentOrders(orders) {
     }).join('');
 }
 
-
+// --- NEW: Render Recent Activity List ---
 function displayRecentActivity(orders) {
     const list = document.getElementById('recent-activity-list');
     if (orders.length === 0) {

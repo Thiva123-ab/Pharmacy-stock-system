@@ -1,7 +1,7 @@
-
+// Local_Pharmacy_Stock_and_Delivery_System(FINAL)/src/main/resources/static/frontend/pharmacist/js/prescriptions.js
 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
-let allPrescriptions = [];
+let allPrescriptions = []; // <-- ADDED: Global store for prescriptions
 
 // --- Price Formatter (if needed, good to have) ---
 const lkrFormatter = new Intl.NumberFormat('si-LK', {
@@ -9,11 +9,11 @@ const lkrFormatter = new Intl.NumberFormat('si-LK', {
     currency: 'LKR',
 });
 
-
+// --- START: ADDED MODAL VARIABLES ---
 const prescriptionModal = document.getElementById('prescription-modal');
 const prescriptionDetailsContent = document.getElementById('prescription-details-content');
 const cancelModalBtn = document.getElementById('cancel-modal-btn');
-
+// --- END: ADDED MODAL VARIABLES ---
 
 if (document.getElementById('user-name')) {
     document.getElementById('user-name').textContent = user.firstName ? `${user.firstName} ${user.lastName}` : 'Pharmacist';
@@ -34,7 +34,7 @@ document.querySelector('.logout-btn')?.addEventListener('click', () => {
     }
 });
 
-
+// Show Alert Message
 function showAlert(message, type = 'error') {
     const alertBox = document.getElementById('alertBox');
     const alertMessage = document.getElementById('alertMessage');
@@ -72,29 +72,29 @@ function showAlert(message, type = 'error') {
 }
 
 
--
-    async function loadPrescriptions() {
-        const tbody = document.getElementById('prescriptions-table-body');
+// --- Load Prescriptions from Backend ---
+async function loadPrescriptions() {
+    const tbody = document.getElementById('prescriptions-table-body');
 
-        try {
-            const response = await apiRequest(API_CONFIG.ENDPOINTS.GET_PRESCRIPTIONS, {
-                method: 'GET'
-            });
+    try {
+        const response = await apiRequest(API_CONFIG.ENDPOINTS.GET_PRESCRIPTIONS, {
+            method: 'GET'
+        });
 
-            if (response.success && response.data.data) {
-                allPrescriptions = response.data.data;
-                displayPrescriptions(allPrescriptions);
-                updateStats(allPrescriptions);
-            } else {
-                showAlert(response.error || 'Failed to load prescriptions.', 'error');
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: red;">Error loading prescriptions.</td></tr>`;
-            }
-        } catch (error) {
-            console.error('Error fetching prescriptions:', error);
-            showAlert('A connection error occurred.', 'error');
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: red;">Connection error.</td></tr>`;
+        if (response.success && response.data.data) {
+            allPrescriptions = response.data.data; // <-- UPDATED
+            displayPrescriptions(allPrescriptions); // <-- UPDATED
+            updateStats(allPrescriptions); // <-- UPDATED
+        } else {
+            showAlert(response.error || 'Failed to load prescriptions.', 'error');
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: red;">Error loading prescriptions.</td></tr>`;
         }
+    } catch (error) {
+        console.error('Error fetching prescriptions:', error);
+        showAlert('A connection error occurred.', 'error');
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: red;">Connection error.</td></tr>`;
     }
+}
 
 // --- Display Prescriptions in Table (With Action Buttons) ---
 function displayPrescriptions(prescriptions) {
