@@ -19,14 +19,14 @@ public class InventoryController {
 
     public InventoryController(InventoryService service) { this.service = service; }
 
-    // GET /api/inventory (Used by inventory.js)
+    // GET method
     @GetMapping
     public ResponseEntity<?> listAll() {
         List<InventoryLog> logs = service.findAll();
         return ResponseEntity.ok(Map.of("success", true, "data", logs));
     }
 
-    // POST /api/inventory (Add Stock Movement)
+    // POST method
     @PostMapping
     public ResponseEntity<?> create(@RequestBody InventoryLog log) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -36,7 +36,7 @@ public class InventoryController {
         return ResponseEntity.status(201).body(Map.of("success", true, "data", saved));
     }
 
-    // DELETE /api/inventory/{id}
+    // DELETE method
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         service.delete(id);
