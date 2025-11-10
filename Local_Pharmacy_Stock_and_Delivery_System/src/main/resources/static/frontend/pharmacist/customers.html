@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - PharmaCare System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h1>PharmaCare</h1>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Pharmacist</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="medicines.html" class="nav-item">
+            <i class="fas fa-pills"></i>
+            <span>Medicines</span>
+        </a>
+        <a href="orders.html" class="nav-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Orders</span>
+        </a>
+        <a href="prescriptions.html" class="nav-item">
+            <i class="fas fa-file-prescription"></i>
+            <span>Prescriptions</span>
+        </a>
+        <a href="deliveries.html" class="nav-item">
+            <i class="fas fa-truck"></i>
+            <span>Deliveries</span>
+        </a>
+        <a href="customers.html" class="nav-item active">
+            <i class="fas fa-users"></i>
+            <span>Customers</span>
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <i class="fas fa-warehouse"></i>
+            <span>Inventory</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Reports</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1>Customer Management</h1>
+            <p class="date">Manage customer information and records</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 80px; right: 30px; z-index: 1001; transition: all 0.5s ease-in-out;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card blue">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <h3 id="total-customers-stat">0</h3>
+            <p>Total Customers</p>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-icon"><i class="fas fa-user-plus"></i></div>
+            <h3 id="new-customers-stat">0</h3>
+            <p>New This Month</p>
+        </div>
+        <div class="stat-card purple">
+            <div class="stat-icon"><i class="fas fa-star"></i></div>
+            <h3 id="active-customers-stat">0</h3>
+            <p>Active Customers</p>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-icon"><i class="fas fa-heart"></i></div>
+            <h3 id="loyalty-customers-stat">0</h3>
+            <p>Loyalty Members</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-users"></i> Customers List</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Orders</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <!-- This tbody is correctly targeted by customers.js -->
+                <tbody id="customer-table-body">
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 40px;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 15px; color: #666;">Loading customers...</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/customers.js"></script>
+<script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>
