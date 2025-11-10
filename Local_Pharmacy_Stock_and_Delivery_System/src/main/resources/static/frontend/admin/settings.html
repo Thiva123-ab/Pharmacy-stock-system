@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - PharmaCare Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+<div class="background-animation" id="bgAnimation"></div>
+
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h2>PharmaCare Admin</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user-shield" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Administrator</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="user-management.html" class="nav-item">
+            <i class="fas fa-users-cog"></i>
+            <span>User Management</span>
+        </a>
+        <a href="system-settings.html" class="nav-item">
+            <i class="fas fa-cogs"></i>
+            <span>System Settings</span>
+        </a>
+        <a href="analytics.html" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Analytics</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <i class="fas fa-file-alt"></i>
+            <span>Reports</span>
+        </a>
+        <a href="audit-logs.html" class="nav-item">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Audit Logs</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item active">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+
+<div class="main-content">
+
+    <div class="header">
+        <div>
+            <h1>Settings</h1>
+            <p class="date">Configure your preferences</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-moon" style="color: #666; font-size: 18px;"></i>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-mode-header">
+                    <span class="toggle-slider"></span>
+                </label>
+                <i class="fas fa-sun" style="color: #ff9800; font-size: 18px;"></i>
+            </div>
+            <div class="date">
+                <i class="fas fa-calendar"></i>
+                <span id="current-date"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 120px; right: 30px; z-index: 1001; transition: opacity 0.5s ease;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+
+
+    <div class="card">
+        <div class="tabs">
+            <button class="tab-btn" data-tab="notifications">
+                <i class="fas fa-bell"></i> Notifications
+            </button>
+            <button class="tab-btn" data-tab="security">
+                <i class="fas fa-shield-alt"></i> Security
+            </button>
+            <button class="tab-btn active" data-tab="preferences">
+                <i class="fas fa-sliders-h"></i> Preferences
+            </button>
+            <button class="tab-btn" data-tab="system">
+                <i class="fas fa-cog"></i> System
+            </button>
+        </div>
+
+
+        <div id="notifications-tab" class="tab-content">
+            <h3 style="margin-bottom: 20px;">Notification Settings</h3>
+            <div class="setting-item">
+                <div>
+                    <h4>Email Notifications</h4>
+                    <p>Receive email notifications for important updates</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div>
+                    <h4>Order Updates</h4>
+                    <p>Get notified when orders are placed or updated</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div>
+                    <h4>System Alerts</h4>
+                    <p>Receive alerts about system issues and maintenance</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+
+        <div id="security-tab" class="tab-content">
+            <h3 style="margin-bottom: 20px;">Security Settings</h3>
+            <form id="password-form">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" id="current-password" class="form-control" placeholder="Enter current password" style="padding: 12px 15px;" required>
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="new-password" class="form-control" placeholder="Enter new password" style="padding: 12px 15px;" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="confirm-password" class="form-control" placeholder="Confirm new password" style="padding: 12px 15px;" required>
+                </div>
+                <button type="submit" class="quick-action-btn blue">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+            </form>
+        </div>
+
+
+        <div id="preferences-tab" class="tab-content active">
+            <h3 style="margin-bottom: 20px;">Application Preferences</h3>
+
+            <form id="pref-form">
+                <div class="form-group">
+                    <label for="pref-language">Language</label>
+                    <select id="pref-language" class="form-control" style="padding: 12px 15px;">
+                        <option value="English">English</option>
+                        <option value="Sinhala">Sinhala</option>
+                        <option value="Tamil">Tamil</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pref-date-format">Date Format</label>
+                    <select id="pref-date-format" class="form-control" style="padding: 12px 15px;">
+                        <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                    </select>
+                </div>
+                <button type="submit" class="quick-action-btn green">
+                    <i class="fas fa-save"></i> Save Preferences
+                </button>
+            </form>
+        </div>
+
+
+        <div id="system-tab" class="tab-content">
+            <h3 style="margin-bottom: 20px;">System Settings</h3>
+            <div class="setting-item">
+                <div>
+                    <h4>Dark Mode</h4>
+                    <p>Switch between light and dark theme</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-mode">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <div>
+                    <h4>Auto Backup</h4>
+                    <p>Automatically backup data daily</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/settings.js"></script>
+<script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - PharmaCare System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h1>PharmaCare</h1>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Pharmacist</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="medicines.html" class="nav-item">
+            <i class="fas fa-pills"></i>
+            <span>Medicines</span>
+        </a>
+        <a href="orders.html" class="nav-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Orders</span>
+        </a>
+        <a href="prescriptions.html" class="nav-item">
+            <i class="fas fa-file-prescription"></i>
+            <span>Prescriptions</span>
+        </a>
+        <a href="deliveries.html" class="nav-item">
+            <i class="fas fa-truck"></i>
+            <span>Deliveries</span>
+        </a>
+        <a href="customers.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Customers</span>
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <i class="fas fa-warehouse"></i>
+            <span>Inventory</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Reports</span>
+        </a>
+        <a href="settings.html" class="nav-item active">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1>Settings</h1>
+            <p class="date">Manage your account and application preferences</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 80px; right: 30px; z-index: 1001; transition: all 0.5s ease-in-out;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-user-cog"></i> Account Settings</h2>
+
+        <!-- Profile Information Form -->
+        <form id="profile-form">
+            <h3 style="margin-top: 20px; margin-bottom: 15px; color: #0288d1;">Profile Information</h3>
+
+            <!-- Splitting Full Name into First and Last Name to match database -->
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: -5px;">
+                <div class="form-group">
+                    <label for="profile-first-name">First Name</label>
+                    <input type="text" id="profile-first-name" class="form-control" placeholder="First Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-last-name">Last Name</label>
+                    <input type="text" id="profile-last-name" class="form-control" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="profile-email">Email Address</label>
+                <input type="email" id="profile-email" class="form-control" placeholder="Email Address" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="profile-phone">Phone Number</label>
+                <input type="tel" id="profile-phone" class="form-control" placeholder="Phone Number">
+            </div>
+
+            <button type="submit" class="quick-action-btn green" style="margin-top: 15px;">
+                <i class="fas fa-save"></i>
+                <span>Save Profile</span>
+            </button>
+        </form>
+
+        <!-- Change Password Form -->
+        <form id="password-form">
+            <h3 style="margin-top: 30px; margin-bottom: 15px; color: #0288d1; border-top: 1px solid #eee; padding-top: 20px;">Change Password</h3>
+
+            <div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" class="form-control" placeholder="Current Password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" class="form-control" placeholder="New Password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm New Password</label>
+                <input type="password" id="confirm-password" class="form-control" placeholder="Confirm New Password" required>
+            </div>
+
+            <button type="submit" class="quick-action-btn blue" style="margin-top: 15px;">
+                <i class="fas fa-key"></i>
+                <span>Update Password</span>
+            </button>
+        </form>
+
+        <!-- Other Toggles -->
+        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="dark-mode" class="toggle-switch-input">
+                    <span class="toggle-switch-label"></span>
+                    <span>Enable Dark Mode</span>
+                </label>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="email-notifications" class="toggle-switch-input">
+                    <span class="toggle-switch-label"></span>
+                    <span>Email Notifications</span>
+                </label>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="order-alerts" class="toggle-switch-input" checked>
+                    <span class="toggle-switch-label"></span>
+                    <span>Order Alerts</span>
+                </label>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Simple toggle switch CSS -->
+<style>
+    .toggle-switch-label {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+        background-color: #ccc;
+        border-radius: 34px;
+        transition: background-color 0.3s;
+    }
+    .toggle-switch-label::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: white;
+        top: 2px;
+        left: 2px;
+        transition: transform 0.3s;
+    }
+    .toggle-switch-input {
+        display: none;
+    }
+    .toggle-switch-input:checked + .toggle-switch-label {
+        background-color: #4CAF50;
+    }
+    .toggle-switch-input:checked + .toggle-switch-label::after {
+        transform: translateX(26px);
+    }
+</style>
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/settings.js"></script>
+<script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>

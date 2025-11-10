@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback - PharmaCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h2>PharmaCare</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Customer</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="browse-medicines.html" class="nav-item">
+            <i class="fas fa-pills"></i>
+            <span>Browse Medicines</span>
+        </a>
+        <a href="my-orders.html" class="nav-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>My Orders</span>
+        </a>
+        <a href="prescriptions.html" class="nav-item">
+            <i class="fas fa-file-prescription"></i>
+            <span>My Prescriptions</span>
+        </a>
+        <a href="track-order.html" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Track Order</span>
+        </a>
+        <a href="feedback.html" class="nav-item active">
+            <i class="fas fa-star"></i>
+            <span>Feedback</span>
+        </a>
+        <a href="notifications.html" class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1>Customer Feedback</h1>
+            <p class="date">See what others are saying and share your experience</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 120px; right: 30px; z-index: 1001; transition: opacity 0.5s ease;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+    <div class="content-grid" style="grid-template-columns: 2fr 1fr;">
+        <div class="card">
+            <h2><i class="fas fa-comments"></i> Recent Feedback</h2>
+            <div id="feedback-list-container" style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
+                <div class="spinner" style="margin: 40px auto;"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-pencil-alt"></i> Leave Your Feedback</h2>
+            <form id="feedback-form">
+                <div class="form-group">
+                    <label>Your Rating</label>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">&#9733;</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">&#9733;</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">&#9733;</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">&#9733;</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">&#9733;</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-comment">Your Comment</label>
+                    <textarea id="feedback-comment" class="form-control" rows="6" placeholder="Tell us about your experience..."></textarea>
+                </div>
+                <button type="submit" class="quick-action-btn green" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Submit Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/feedback.js"></script> <script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>
