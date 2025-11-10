@@ -1,6 +1,6 @@
 package ac.nsbm.local_pharmacy_stock_and_delivery_system.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference; // <-- IMPORT THIS
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
