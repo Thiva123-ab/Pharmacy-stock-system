@@ -563,7 +563,7 @@ body {
     font-size: 24px;
 }
 
-/* Contact Section */
+
 .contact-section {
     padding: 80px 50px;
     background: white;
@@ -745,35 +745,27 @@ body {
         text-align: center;
         padding: 80px 20px 40px;
     }
-
     .hero-title {
         font-size: 36px;
     }
-
     .hero-image i {
         font-size: 150px;
     }
-
     .hero-buttons {
         flex-direction: column;
     }
-
     .about-container {
         flex-direction: column;
     }
-
     .about-image i {
         font-size: 150px;
     }
-
     .services-grid {
         grid-template-columns: 1fr;
     }
-
     .nav-buttons {
         gap: 10px;
     }
-
     .btn-login,
     .btn-register {
         padding: 8px 15px;
