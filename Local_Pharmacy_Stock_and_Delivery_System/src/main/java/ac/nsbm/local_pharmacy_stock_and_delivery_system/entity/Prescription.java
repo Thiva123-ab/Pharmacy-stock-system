@@ -3,6 +3,7 @@ package ac.nsbm.local_pharmacy_stock_and_delivery_system.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "prescriptions")
@@ -24,10 +25,13 @@ public class Prescription {
     private LocalDate issueDate;
     private LocalDate expiryDate;
 
-    private String status; // PENDING, APPROVED, DISPENSED, REJECTED
+    private String status;
 
     private String fileUrl;
 
     @ManyToOne
     private AppUser submittedBy;
+
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
