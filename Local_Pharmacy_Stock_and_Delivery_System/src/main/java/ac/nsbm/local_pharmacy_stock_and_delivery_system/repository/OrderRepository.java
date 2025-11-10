@@ -13,10 +13,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByCustomer_IdOrderByCreatedAtDesc(Long customerId);
 
 
-
-
     @Query("SELECT SUM(o.totalAmount) FROM Order o WHERE o.status = 'COMPLETED' OR o.status = 'DELIVERED'")
     Double findTotalRevenue();
+
+
 
 
     @Query(value = "SELECT DATE(created_at) as orderDate, COUNT(id) as orderCount " +
@@ -27,7 +27,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Object[]> findOrdersLast7Days();
 
 
+
     List<Order> findTop5ByOrderByCreatedAtDesc();
+
+
 
 
     @Query("SELECT COALESCE(SUM(o.totalAmount), 0.0), COUNT(o.id) " +
