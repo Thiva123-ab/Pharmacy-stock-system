@@ -36,6 +36,7 @@ public class PrescriptionController {
         return ResponseEntity.ok(Map.of("success", true, "data", list));
     }
 
+
     @PostMapping
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> create(@RequestBody Prescription prescription) {
