@@ -51,7 +51,6 @@ public class UserController {
         return ResponseEntity.ok(Map.of("success", true, "data", drivers));
     }
 
-
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllUsers() {
@@ -171,7 +170,6 @@ public class UserController {
         }
     }
 
-
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateDTO dto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -192,7 +190,7 @@ public class UserController {
 
         return ResponseEntity.ok(Map.of("success", true, "message", "Password updated successfully"));
     }
-// Post method
+dev
     @PostMapping("/avatar")
     public ResponseEntity<?> uploadAvatar(@RequestBody Map<String, String> avatarData) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
