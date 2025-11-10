@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - PharmaCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h2>PharmaCare</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Customer</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="browse-medicines.html" class="nav-item">
+            <i class="fas fa-pills"></i>
+            <span>Browse Medicines</span>
+        </a>
+        <a href="my-orders.html" class="nav-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>My Orders</span>
+        </a>
+        <a href="prescriptions.html" class="nav-item">
+            <i class="fas fa-file-prescription"></i>
+            <span>My Prescriptions</span>
+        </a>
+        <a href="track-order.html" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Track Order</span>
+        </a>
+        <a href="feedback.html" class="nav-item">
+            <i class="fas fa-star"></i>
+            <span>Feedback</span>
+        </a>
+        <a href="notifications.html" class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1 id="welcome-header">Welcome Back!</h1>
+            <p class="date">Your health dashboard</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 80px; right: 30px; z-index: 1001; transition: all 0.5s ease-in-out;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card blue">
+            <div class="stat-icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <h3 id="total-orders">0</h3>
+            <p>Total Orders</p>
+        </div>
+
+        <div class="stat-card orange">
+            <div class="stat-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3 id="pending-orders">0</h3>
+            <p>Pending Orders</p>
+        </div>
+
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fas fa-file-prescription"></i>
+            </div>
+            <h3 id="active-prescriptions">0</h3>
+            <p>Active Prescriptions</p>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="stat-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <h3 id="total-spent">LKR 0.00</h3>
+            <p>Total Spent</p>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="card">
+            <h2>
+                <i class="fas fa-shopping-cart"></i>
+                Recent Orders
+            </h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px;">
+                            <div class="spinner" style="margin: 0 auto;"></div>
+                            <p style="margin-top: 15px; color: #666;">Loading recent orders...</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="margin-bottom: 25px;">
+                <h2>
+                    <i class="fas fa-bolt"></i>
+                    Quick Actions
+                </h2>
+                <div class="quick-actions">
+                    <a href="browse-medicines.html" class="quick-action-btn blue" style="text-decoration: none;">
+                        <i class="fas fa-pills"></i>
+                        <span>Browse Medicines</span>
+                    </a>
+                    <a href="prescriptions.html" class="quick-action-btn green" style="text-decoration: none;">
+                        <i class="fas fa-file-prescription"></i>
+                        <span>Upload Prescription</span>
+                    </a>
+                    <a href="track-order.html" class="quick-action-btn orange" style="text-decoration: none;">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Track Order</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <i class="fas fa-heartbeat"></i>
+                    Health Tips
+                </h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-pills" style="color: #4fc3f7;"></i>
+                        <div>
+                            <h4>Take Medicine on Time</h4>
+                            <p>Set reminders for your prescriptions</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-water" style="color: #66bb6a;"></i>
+                        <div>
+                            <h4>Stay Hydrated</h4>
+                            <p>Drink at least 8 glasses of water daily</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-heartbeat" style="color: #f44336;"></i>
+                        <div>
+                            <h4>Regular Check-ups</h4>
+                            <p>Schedule your health check-ups</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>

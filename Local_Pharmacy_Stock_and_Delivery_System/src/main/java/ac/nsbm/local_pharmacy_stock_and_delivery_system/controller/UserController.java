@@ -4,7 +4,6 @@ import ac.nsbm.local_pharmacy_stock_and_delivery_system.dto.PasswordChangeDTO;
 import ac.nsbm.local_pharmacy_stock_and_delivery_system.dto.ProfileUpdateDTO;
 import ac.nsbm.local_pharmacy_stock_and_delivery_system.dto.RegisterDTO;
 import ac.nsbm.local_pharmacy_stock_and_delivery_system.entity.AppUser;
-// --- ADD THIS IMPORT ---
 import ac.nsbm.local_pharmacy_stock_and_delivery_system.entity.Role;
 import ac.nsbm.local_pharmacy_stock_and_delivery_system.service.UserService;
 import jakarta.validation.Valid;
@@ -13,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +27,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    // --- START: NEW ENDPOINT TO GET DRIVERS ---
+
     @GetMapping("/drivers")
     @PreAuthorize("hasAnyRole('ADMIN', 'PHARMACIST')")
     public ResponseEntity<?> getDeliveryDrivers() {
         List<AppUser> allUsers = userService.getAllUsers();
 
-        // Filter for only users with the DELIVERY role
+
         List<Map<String, Object>> drivers = allUsers.stream()
                 .filter(user -> user.getRole() == Role.ROLE_DELIVERY && "ACTIVE".equals(user.getStatus()))
                 .map(user -> {
@@ -52,7 +50,6 @@ public class UserController {
 
         return ResponseEntity.ok(Map.of("success", true, "data", drivers));
     }
-    // --- END: NEW ENDPOINT ---
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
@@ -160,7 +157,7 @@ public class UserController {
         }
     }
 
-    // --- NEW: DELETE /profile ENDPOINT ---
+
     @DeleteMapping("/profile")
     public ResponseEntity<?> deleteOwnProfile() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -172,14 +169,13 @@ public class UserController {
             return ResponseEntity.badRequest().body(Map.of("success", false, "message", e.getMessage()));
         }
     }
-    // --- END: NEW ENDPOINT ---
 
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateDTO dto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
 
-        // The service now accepts all new fields from the DTO
+
         userService.updateProfile(email, dto);
 
         return ResponseEntity.ok(Map.of("success", true, "message", "Profile updated successfully"));
@@ -194,7 +190,7 @@ public class UserController {
 
         return ResponseEntity.ok(Map.of("success", true, "message", "Password updated successfully"));
     }
-
+dev
     @PostMapping("/avatar")
     public ResponseEntity<?> uploadAvatar(@RequestBody Map<String, String> avatarData) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
