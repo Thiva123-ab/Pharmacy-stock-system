@@ -18,9 +18,10 @@ public class CustomerDetailsDTO {
         CustomerDetailsDTO dto = new CustomerDetailsDTO();
         dto.setId(user.getId());
 
-        String[] names = user.getName().split(" ", 2);
-        dto.setFirstName(names.length > 0 ? names[0] : "");
-        dto.setLastName(names.length > 1 ? names[1] : "");
+
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+
 
         dto.setEmail(user.getEmail());
         dto.setPhone(user.getPhone());

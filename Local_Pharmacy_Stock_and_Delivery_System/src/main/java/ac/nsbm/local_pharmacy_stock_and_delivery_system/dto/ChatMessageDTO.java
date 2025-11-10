@@ -6,5 +6,5 @@ import lombok.Data;
 public class ChatMessageDTO {
     private String content;
     private Long orderId;
-    private String chatType; // --- ADDED THIS FIELD ---
+    private String chatType;
 }
