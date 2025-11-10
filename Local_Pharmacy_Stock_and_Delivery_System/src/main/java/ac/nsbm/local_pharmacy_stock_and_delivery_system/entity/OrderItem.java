@@ -1,5 +1,6 @@
 package ac.nsbm.local_pharmacy_stock_and_delivery_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference; // <-- IMPORT THIS
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +13,8 @@ public class OrderItem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @JsonBackReference
     @ManyToOne
     private Order order;
 
@@ -19,5 +22,5 @@ public class OrderItem {
     private Medicine medicine;
 
     private Integer quantity;
-    private Double price; // snapshot price at order time
+    private Double price;
 }

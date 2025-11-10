@@ -29,7 +29,7 @@ public class Delivery {
     private LocalTime scheduledTime;
     private String deliveryNotes;
 
-    private String status; // PENDING, ASSIGNED, IN_TRANSIT, DELIVERED, FAILED
+    private String status;
 
     private Double earnings;
     private Integer rating;
