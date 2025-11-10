@@ -14,9 +14,9 @@ public class ChatMessageResponseDTO {
     private String senderName;
     private Role senderRole;
     private Long orderId;
-    private String chatType; // --- ADDED THIS FIELD ---
+    private String chatType;
 
-    // Factory method to convert an Entity to a DTO
+
     public static ChatMessageResponseDTO fromEntity(ChatMessage message) {
         ChatMessageResponseDTO dto = new ChatMessageResponseDTO();
         dto.setId(message.getId());
@@ -26,7 +26,7 @@ public class ChatMessageResponseDTO {
         dto.setSenderId(message.getSender().getId());
         dto.setSenderName(message.getSender().getFirstName() + " " + message.getSender().getLastName());
         dto.setSenderRole(message.getSender().getRole());
-        dto.setChatType(message.getChatType()); // --- ADDED THIS LINE ---
+        dto.setChatType(message.getChatType());
         return dto;
     }
 }
