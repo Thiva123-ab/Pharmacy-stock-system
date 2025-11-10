@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - PharmaCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<!-- Background Animation -->
+<div class="background-animation" id="bgAnimation"></div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-truck-medical"></i>
+        <h2>PharmaCare Delivery</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Delivery Person</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="my-deliveries.html" class="nav-item">
+            <i class="fas fa-truck"></i>
+            <span>My Deliveries</span>
+        </a>
+        <a href="routes.html" class="nav-item">
+            <i class="fas fa-route"></i>
+            <span>Routes</span>
+        </a>
+        <a href="completed.html" class="nav-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Completed</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item active">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <div>
+            <h1>Settings</h1>
+            <p class="date">Configure your delivery preferences</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-moon" style="color: #666; font-size: 18px;"></i>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-mode-header">
+                    <span class="toggle-slider"></span>
+                </label>
+                <i class="fas fa-sun" style="color: #ff9800; font-size: 18px;"></i>
+            </div>
+            <div class="date">
+                <i class="fas fa-calendar"></i>
+                <span id="current-date"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Tabs -->
+    <div class="card">
+        <div style="display: flex; gap: 10px; border-bottom: 2px solid #e0f7fa;">
+            <button class="tab-btn active" data-tab="notifications">
+                <i class="fas fa-bell"></i> Notifications
+            </button>
+            <button class="tab-btn" data-tab="security">
+                <i class="fas fa-lock"></i> Security
+            </button>
+            <button class="tab-btn" data-tab="preferences">
+                <i class="fas fa-sliders-h"></i> Preferences
+            </button>
+            <button class="tab-btn" data-tab="system">
+                <i class="fas fa-cog"></i> System
+            </button>
+        </div>
+
+        <!-- Notifications Tab -->
+        <div class="tab-content active" id="notifications-tab">
+            <h3 style="color: #0288d1; margin-top: 20px;">Notification Settings</h3>
+
+            <div class="setting-item">
+                <div>
+                    <h4>New Delivery Assignments</h4>
+                    <p>Get notified when new deliveries are assigned to you</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <h4>Route Updates</h4>
+                    <p>Receive alerts about route changes and optimizations</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <h4>Customer Messages</h4>
+                    <p>Get notified when customers send you messages</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <h4>Payment Updates</h4>
+                    <p>Receive notifications about earnings and payments</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Security Tab -->
+        <div class="tab-content" id="security-tab">
+            <h3 style="color: #0288d1; margin-top: 20px;">Security Settings</h3>
+
+            <form id="password-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="current-password" class="form-control" placeholder="Current Password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="new-password" class="form-control" placeholder="New Password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm-password" class="form-control" placeholder="Confirm Password">
+                    </div>
+                </div>
+
+                <button type="submit" class="quick-action-btn green">
+                    <i class="fas fa-key"></i> Change Password
+                </button>
+            </form>
+        </div>
+
+        <!-- Preferences Tab -->
+        <div class="tab-content" id="preferences-tab">
+            <h3 style="color: #0288d1; margin-top: 20px;">Delivery Preferences</h3>
+
+            <div class="form-group">
+                <label for="max-deliveries">Maximum Deliveries Per Day</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-hashtag"></i>
+                    <input type="number" id="max-deliveries" class="form-control" value="20" min="1" max="50">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="preferred-areas">Preferred Delivery Areas</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <select id="preferred-areas" class="form-control" multiple>
+                        <option value="COLOMBO">Colombo</option>
+                        <option value="KANDY">Kandy</option>
+                        <option value="GALLE">Galle</option>
+                        <option value="JAFFNA">Jaffna</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="quick-action-btn blue">
+                <i class="fas fa-save"></i> Save Preferences
+            </button>
+        </div>
+
+        <!-- System Tab -->
+        <div class="tab-content" id="system-tab">
+            <h3 style="color: #0288d1; margin-top: 20px;">System Settings</h3>
+
+            <div class="setting-item">
+                <div>
+                    <h4>Dark Mode</h4>
+                    <p>Switch between light and dark theme</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-mode">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="language">Language</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-language"></i>
+                    <select id="language" class="form-control">
+                        <option value="EN">English</option>
+                        <option value="SI">Sinhala</option>
+                        <option value="TA">Tamil</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="timezone">Timezone</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-clock"></i>
+                    <select id="timezone" class="form-control">
+                        <option value="Asia/Colombo" selected>Asia/Colombo (GMT+5:30)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/settings.js"></script>
+<script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>
