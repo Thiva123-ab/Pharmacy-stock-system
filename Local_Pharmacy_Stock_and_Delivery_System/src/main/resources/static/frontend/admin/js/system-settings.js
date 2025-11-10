@@ -23,7 +23,7 @@ document.querySelector('.logout-btn')?.addEventListener('click', () => {
     }
 });
 
-
+// Show Alert Message
 function showAlert(message, type = 'error') {
     const alertBox = document.getElementById('alertBox');
     const alertMessage = document.getElementById('alertMessage');
@@ -31,7 +31,7 @@ function showAlert(message, type = 'error') {
 
     if (!alertBox || !alertMessage || !alertIcon) {
         console.error('Alert elements not found');
-        alert(message);
+        alert(message); // Fallback
         return;
     }
 
@@ -60,24 +60,24 @@ function showAlert(message, type = 'error') {
     }, 5000);
 }
 
-
+// Function to load settings from the backend
 async function loadSettings() {
     try {
         const response = await apiRequest(API_CONFIG.ENDPOINTS.GET_SETTINGS, { method: 'GET' });
         if (response.success && response.data.data) {
             const settings = response.data.data;
 
-
+            // Populate General Settings
             document.getElementById('system-name').value = settings.pharmacyName || '';
             document.getElementById('system-email').value = settings.systemEmail || '';
             document.getElementById('contact-phone').value = settings.phone || '';
             document.getElementById('time-zone').value = settings.timezone || 'Asia/Colombo';
 
-
+            // Populate Email Settings
             document.getElementById('smtp-host').value = settings.smtpHost || '';
             document.getElementById('smtp-port').value = settings.smtpPort || '587';
             document.getElementById('smtp-username').value = settings.smtpUsername || '';
-
+            // Do not populate the password field
             document.getElementById('smtp-password').placeholder = "Leave blank to keep unchanged";
 
         } else {
@@ -89,7 +89,7 @@ async function loadSettings() {
     }
 }
 
-
+// Handle General Settings Form Submit
 document.getElementById('general-settings-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
@@ -133,7 +133,6 @@ document.getElementById('email-settings-form')?.addEventListener('submit', async
         smtpPassword: document.getElementById('smtp-password').value // Send this field
     };
 
-
     if (!data.smtpPassword || data.smtpPassword.trim() === '') {
         delete data.smtpPassword;
     }
@@ -146,7 +145,7 @@ document.getElementById('email-settings-form')?.addEventListener('submit', async
 
         if (response.success) {
             showAlert('Email settings updated successfully!', 'success');
-            document.getElementById('smtp-password').value = '';
+            document.getElementById('smtp-password').value = ''; // Clear password field
         } else {
             showAlert(response.error || 'Failed to update settings.', 'error');
         }
@@ -161,7 +160,6 @@ document.getElementById('email-settings-form')?.addEventListener('submit', async
 
 window.addEventListener('DOMContentLoaded', () => {
     loadSettings();
-
 
     const darkMode = localStorage.getItem('darkMode');
     if (darkMode === 'enabled') {
