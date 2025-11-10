@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescriptions - PharmaCare System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content {
+            max-width: 500px;
+            width: 90%;
+            animation: slideInDown 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        @keyframes slideInDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        body.dark-mode .modal-content { background: #1e1e2e; }
+    </style>
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h1>PharmaCare</h1>
+    </div>
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Pharmacist</p>
+    </div>
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="medicines.html" class="nav-item">
+            <i class="fas fa-pills"></i>
+            <span>Medicines</span>
+        </a>
+        <a href="orders.html" class="nav-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Orders</span>
+        </a>
+        <a href="prescriptions.html" class="nav-item active">
+            <i class="fas fa-file-prescription"></i>
+            <span>Prescriptions</span>
+        </a>
+        <a href="deliveries.html" class="nav-item">
+            <i class="fas fa-truck"></i>
+            <span>Deliveries</span>
+        </a>
+        <a href="customers.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Customers</span>
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <i class="fas fa-warehouse"></i>
+            <span>Inventory</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Reports</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1>Prescription Management</h1>
+            <p class="date">Manage patient prescriptions and medical records</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 80px; right: 30px; z-index: 1001; transition: all 0.5s ease-in-out;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card blue">
+            <div class="stat-icon"><i class="fas fa-file-prescription"></i></div>
+            <h3 id="total-prescriptions-stat">0</h3>
+            <p>Total Prescriptions</p>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
+            <h3 id="pending-prescriptions-stat">0</h3>
+            <p>Pending Review</p>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+            <h3 id="approved-prescriptions-stat">0</h3>
+            <p>Approved</p>
+        </div>
+        <div class="stat-card purple">
+            <div class="stat-icon"><i class="fas fa-box"></i></div>
+            <h3 id="dispensed-prescriptions-stat">0</h3>
+            <p>Dispensed</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2><i class="fas fa-file-prescription"></i> Prescriptions List</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Prescription ID</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Medicines</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="prescriptions-table-body">
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 40px;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 15px; color: #666;">Loading prescriptions...</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div id="prescription-modal" class="modal-overlay">
+    <div class="modal-content card">
+        <h2 style="color: #0288d1; margin-bottom: 20px;">
+            <i class="fas fa-file-medical"></i> View Prescription Details
+        </h2>
+
+        <div id="prescription-details-content">
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button type="button" class="quick-action-btn" id="cancel-modal-btn" style="flex: 1; background: #999;">
+                <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/prescriptions.js"></script>
+<script>
+    // Floating elements animation
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>

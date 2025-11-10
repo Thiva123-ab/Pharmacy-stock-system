@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Dashboard - PharmaCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<!-- Background Animation -->
+<div class="background-animation" id="bgAnimation"></div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-truck-medical"></i>
+        <h2>PharmaCare Delivery</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Delivery Person</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="my-deliveries.html" class="nav-item">
+            <i class="fas fa-truck"></i>
+            <span>My Deliveries</span>
+        </a>
+        <a href="routes.html" class="nav-item">
+            <i class="fas fa-route"></i>
+            <span>Routes</span>
+        </a>
+        <a href="completed.html" class="nav-item">
+            <i class="fas fa-check-circle"></i>
+            <span>Completed</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <div>
+            <h1>Delivery Dashboard</h1>
+            <p class="date">Track your deliveries and routes</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card blue">
+            <div class="stat-icon">
+                <i class="fas fa-boxes"></i>
+            </div>
+            <h3 id="total-deliveries">0</h3>
+            <p>Total Deliveries</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>This month</span>
+            </div>
+        </div>
+
+        <div class="stat-card orange">
+            <div class="stat-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3 id="pending-deliveries">0</h3>
+            <p>Pending Deliveries</p>
+            <div class="trend up">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Needs attention</span>
+            </div>
+        </div>
+
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <h3 id="completed-deliveries">0</h3>
+            <p>Completed Today</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>+15% from yesterday</span>
+            </div>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="stat-icon">
+                <i class="fas fa-route"></i>
+            </div>
+            <h3 id="total-distance">0 km</h3>
+            <p>Total Distance</p>
+            <div class="trend up">
+                <i class="fas fa-road"></i>
+                <span>This month</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+        <!-- Today's Deliveries -->
+        <div class="card">
+            <h2>
+                <i class="fas fa-truck"></i>
+                Today's Deliveries
+            </h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="deliveries-table-body">
+                    <tr>
+                        <td>#DEL-001</td>
+                        <td>Sarah Johnson</td>
+                        <td>123 Main St, Colombo</td>
+                        <td><span class="status processing">In Transit</span></td>
+                        <td>
+                            <button class="quick-action-btn green" style="padding: 8px 15px; font-size: 12px;">
+                                <i class="fas fa-check"></i> Complete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#DEL-002</td>
+                        <td>Mike Williams</td>
+                        <td>456 Park Ave, Kandy</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <button class="quick-action-btn blue" style="padding: 8px 15px; font-size: 12px;">
+                                <i class="fas fa-truck"></i> Start
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#DEL-003</td>
+                        <td>Emily Brown</td>
+                        <td>789 Beach Rd, Galle</td>
+                        <td><span class="status completed">Delivered</span></td>
+                        <td>
+                            <button class="quick-action-btn" style="padding: 8px 15px; font-size: 12px; background: #999;">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quick Actions & Activity -->
+        <div>
+            <!-- Quick Actions -->
+            <div class="card" style="margin-bottom: 25px;">
+                <h2>
+                    <i class="fas fa-bolt"></i>
+                    Quick Actions
+                </h2>
+                <div class="quick-actions">
+                    <a href="my-deliveries.html" class="quick-action-btn blue" style="text-decoration: none;">
+                        <i class="fas fa-truck"></i>
+                        <span>View Deliveries</span>
+                    </a>
+                    <a href="routes.html" class="quick-action-btn green" style="text-decoration: none;">
+                        <i class="fas fa-route"></i>
+                        <span>Check Routes</span>
+                    </a>
+                    <a href="profile.html" class="quick-action-btn orange" style="text-decoration: none;">
+                        <i class="fas fa-user"></i>
+                        <span>Update Profile</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <h2>
+                    <i class="fas fa-history"></i>
+                    Recent Activity
+                </h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-check-circle" style="color: #66bb6a;"></i>
+                        <div>
+                            <h4>Delivery Completed</h4>
+                            <p>Order #DEL-003 delivered successfully</p>
+                            <small>10 minutes ago</small>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-truck" style="color: #4fc3f7;"></i>
+                        <div>
+                            <h4>Started Delivery</h4>
+                            <p>Order #DEL-001 is in transit</p>
+                            <small>1 hour ago</small>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-box" style="color: #ff9800;"></i>
+                        <div>
+                            <h4>New Assignment</h4>
+                            <p>Order #DEL-002 assigned to you</p>
+                            <small>2 hours ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+    // Create floating animated elements
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - PharmaCare</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+  <div class="logo">
+    <i class="fas fa-pills"></i>
+    <h2>PharmaCare</h2>
+  </div>
+
+  <div class="user-profile">
+    <div class="avatar" id="user-avatar">
+      <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+      <i class="fas fa-user" id="avatar-icon"></i>
+      <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+        <i class="fas fa-camera"></i>
+      </div>
+    </div>
+    <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+    <h3 id="user-name">Loading...</h3>
+    <p id="user-role">Customer</p>
+  </div>
+
+  <nav>
+    <a href="dashboard.html" class="nav-item">
+      <i class="fas fa-home"></i>
+      <span>Dashboard</span>
+    </a>
+    <a href="browse-medicines.html" class="nav-item">
+      <i class="fas fa-pills"></i>
+      <span>Browse Medicines</span>
+    </a>
+    <a href="my-orders.html" class="nav-item">
+      <i class="fas fa-shopping-cart"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="prescriptions.html" class="nav-item">
+      <i class="fas fa-file-prescription"></i>
+      <span>My Prescriptions</span>
+    </a>
+    <a href="track-order.html" class="nav-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>Track Order</span>
+    </a>
+    <a href="feedback.html" class="nav-item">
+      <i class="fas fa-star"></i>
+      <span>Feedback</span>
+    </a>
+    <a href="notifications.html" class="nav-item">
+      <i class="fas fa-bell"></i>
+      <span>Notifications</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+      <i class="fas fa-user-circle"></i>
+      <span>My Profile</span>
+    </a>
+    <a href="settings.html" class="nav-item active">
+      <i class="fas fa-cog"></i>
+      <span>Settings</span>
+    </a>
+  </nav>
+
+  <button class="logout-btn">
+    <i class="fas fa-sign-out-alt"></i>
+    <span>Logout</span>
+  </button>
+</div>
+
+<div class="main-content">
+  <div class="header">
+    <div>
+      <h1>Settings</h1>
+      <p class="date">Manage your account preferences</p>
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <i class="fas fa-moon" style="color: #666; font-size: 18px;"></i>
+        <label class="toggle-switch">
+          <input type="checkbox" id="dark-mode-header">
+          <span class="toggle-slider"></span>
+        </label>
+        <i class="fas fa-sun" style="color: #ff9800; font-size: 18px;"></i>
+      </div>
+      <div class="date">
+        <i class="fas fa-calendar"></i>
+        <span id="current-date"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="alertBox" class="alert" style="display: none; position: fixed; top: 80px; right: 30px; z-index: 1001; transition: all 0.5s ease-in-out;">
+    <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+    <span id="alertMessage"></span>
+  </div>
+
+  <div class="card">
+    <div class="tabs" style="display: flex; gap: 10px; border-bottom: 2px solid #e0e0e0; margin-bottom: 30px;">
+      <button class="tab-btn active" data-tab="notifications">
+        <i class="fas fa-bell"></i> Notifications
+      </button>
+      <button class="tab-btn" data-tab="security">
+        <i class="fas fa-lock"></i> Security
+      </button>
+      <button class="tab-btn" data-tab="preferences">
+        <i class="fas fa-sliders-h"></i> Preferences
+      </button>
+      <button class="tab-btn" data-tab="privacy">
+        <i class="fas fa-shield-alt"></i> Privacy
+      </button>
+    </div>
+
+    <div id="notifications-tab" class="tab-content active">
+      <h2><i class="fas fa-bell"></i> Notification Settings</h2>
+      <p style="color: #666; margin-top: -15px; margin-bottom: 20px;">Changes are saved automatically.</p>
+
+      <div id="form-notifications">
+        <div class="form-group" style="margin-top: 30px;">
+          <h3 style="margin-bottom: 20px; color: #0288d1;">Email Notifications</h3>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="email-order">
+            <span>Order confirmations</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="email-delivery">
+            <span>Delivery updates</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="email-promo">
+            <span>Promotional offers</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="email-reminders">
+            <span>Prescription reminders</span>
+          </label>
+        </div>
+
+        <div class="form-group" style="margin-top: 30px;">
+          <h3 style="margin-bottom: 20px; color: #0288d1;">SMS Notifications</h3>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="sms-status">
+            <span>Order status updates</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="sms-delivery">
+            <span>Delivery notifications</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div id="security-tab" class="tab-content">
+      <h2><i class="fas fa-lock"></i> Security Settings</h2>
+
+      <form id="password-form" style="margin-top: 30px;">
+        <div class="form-group">
+          <label for="current-password">Current Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="current-password" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="new-password" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm New Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="confirm-password" class="form-control" required>
+          </div>
+        </div>
+        <button type="submit" class="quick-action-btn blue">
+          <i class="fas fa-key"></i>
+          <span>Change Password</span>
+        </button>
+      </form>
+
+      <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
+        <h3 style="margin-bottom: 20px; color: #0288d1;">Two-Factor Authentication</h3>
+        <p style="color: #666; margin-bottom: 15px;">Add an extra layer of security to your account (Feature not available).</p>
+        <button class="quick-action-btn green" disabled style="opacity: 0.6; cursor: not-allowed;">
+          <i class="fas fa-shield-alt"></i>
+          <span>Enable 2FA</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="preferences-tab" class="tab-content">
+      <h2><i class="fas fa-sliders-h"></i> Preferences</h2>
+      <p style="color: #666; margin-top: -15px; margin-bottom: 20px;">Changes are saved automatically.</p>
+
+      <div id="form-preferences">
+        <div class="form-group" style="margin-top: 30px;">
+          <h3 style="margin-bottom: 20px; color: #0288d1;">Appearance</h3>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="pref-dark-mode">
+            <span>Enable Dark Mode</span>
+          </label>
+        </div>
+
+        <div class="form-group" style="margin-top: 30px;">
+          <h3 style="margin-bottom: 20px; color: #0288d1;">Language & Region</h3>
+          <label for="pref-language">Preferred Language</label>
+          <select id="pref-language" class="form-control" style="margin-bottom: 15px;">
+            <option value="en" selected>English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+          </select>
+
+          <label for="pref-currency">Currency</label>
+          <select id="pref-currency" class="form-control">
+            <option value="usd" selected>USD ($)</option>
+            <option value="eur">EUR (€)</option>
+            <option value="gbp">GBP (£)</option>
+            <option value="lkr">LKR (Rs)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div id="privacy-tab" class="tab-content">
+      <h2><i class="fas fa-shield-alt"></i> Privacy Settings</h2>
+      <p style="color: #666; margin-top: -15px; margin-bottom: 20px;">Changes are saved automatically.</p>
+
+      <div id="form-privacy">
+        <div class="form-group" style="margin-top: 30px;">
+          <h3 style="margin-bottom: 20px; color: #0288d1;">Data & Privacy</h3>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="privacy-data">
+            <span>Allow data collection for service improvement</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="privacy-health">
+            <span>Share health data with healthcare providers</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+            <input type="checkbox" id="privacy-marketing">
+            <span>Allow marketing communications</span>
+          </label>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
+        <h3 style="margin-bottom: 20px; color: #0288d1;">Account Actions</h3>
+        <button class="quick-action-btn blue" style="margin-bottom: 10px;" id="download-data-btn">
+          <i class="fas fa-download"></i>
+          <span>Download My Data</span>
+        </button>
+        <button class="quick-action-btn" style="background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);" id="delete-account-btn">
+          <i class="fas fa-trash"></i>
+          <span>Delete Account</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/settings.js"></script>
+<script>
+  const bgAnimation = document.getElementById('bgAnimation');
+  const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+  for (let i = 0; i < 30; i++) {
+    const element = document.createElement('div');
+    element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+    element.style.left = Math.random() * 100 + '%';
+    element.style.animationDelay = Math.random() * 15 + 's';
+    element.style.animationDuration = (15 + Math.random() * 10) + 's';
+    bgAnimation.appendChild(element);
+  }
+</script>
+</body>
+</html>

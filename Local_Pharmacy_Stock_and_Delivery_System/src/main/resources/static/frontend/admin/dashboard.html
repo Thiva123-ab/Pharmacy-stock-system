@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PharmaCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="background-animation" id="bgAnimation"></div>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h2>PharmaCare Admin</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user-shield" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Administrator</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="user-management.html" class="nav-item">
+            <i class="fas fa-users-cog"></i>
+            <span>User Management</span>
+        </a>
+        <a href="system-settings.html" class="nav-item">
+            <i class="fas fa-cogs"></i>
+            <span>System Settings</span>
+        </a>
+        <a href="analytics.html" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Analytics</span>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <i class="fas fa-file-alt"></i>
+            <span>Reports</span>
+        </a>
+        <a href="audit-logs.html" class="nav-item">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Audit Logs</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p class="date">System Overview & Management</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card blue">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3 id="total-users">0</h3> <p>Total Users</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>+12% from last month</span>
+            </div>
+        </div>
+
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h3 id="total-orders">0</h3> <p>Total Orders</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>+8% from last month</span>
+            </div>
+        </div>
+
+        <div class="stat-card orange">
+            <div class="stat-icon">
+                <i class="fas fa-pills"></i>
+            </div>
+            <h3 id="total-medicines">0</h3> <p>Total Medicines</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>+5% from last month</span>
+            </div>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="stat-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <h3 id="total-revenue">$0</h3> <p>Total Revenue</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>+15% from last month</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="card">
+            <h2>
+                <i class="fas fa-users"></i>
+                User Overview
+            </h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="user-overview-tbody">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 20px;">
+                            <div class="spinner" style="margin: 0 auto;"></div>
+                            <p style="margin-top: 10px; color: #666;">Loading users...</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="margin-bottom: 25px;">
+                <h2>
+                    <i class="fas fa-bolt"></i>
+                    Quick Actions
+                </h2>
+                <div class="quick-actions">
+                    <a href="user-management.html" class="quick-action-btn blue" style="text-decoration: none;">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Add User</span>
+                    </a>
+                    <a href="system-settings.html" class="quick-action-btn green" style="text-decoration: none;">
+                        <i class="fas fa-cogs"></i>
+                        <span>System Config</span>
+                    </a>
+                    <a href="reports.html" class="quick-action-btn orange" style="text-decoration: none;">
+                        <i class="fas fa-file-download"></i>
+                        <span>Export Reports</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>
+                    <i class="fas fa-server"></i>
+                    System Status
+                </h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-check-circle" style="color: #66bb6a;"></i>
+                        <div>
+                            <h4>Database Status</h4>
+                            <p>All systems operational</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-check-circle" style="color: #66bb6a;"></i>
+                        <div>
+                            <h4>Server Performance</h4>
+                            <p>Optimal performance</p>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-exclamation-triangle" style="color: #ff9800;"></i>
+                        <div>
+                            <h4>Backup Status</h4>
+                            <p>Last backup: 2 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/dashboard.js"></script> <script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>

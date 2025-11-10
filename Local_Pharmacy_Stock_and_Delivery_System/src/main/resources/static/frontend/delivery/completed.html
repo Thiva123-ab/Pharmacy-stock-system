@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completed Deliveries - PharmaCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<!-- Background Animation -->
+<div class="background-animation" id="bgAnimation"></div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-truck-medical"></i>
+        <h2>PharmaCare Delivery</h2>
+    </div>
+
+    <div class="user-profile">
+        <div class="avatar" id="user-avatar">
+            <img id="avatar-image" src="" alt="User" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <i class="fas fa-user" id="avatar-icon"></i>
+            <div class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-role">Delivery Person</p>
+    </div>
+
+    <nav>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="my-deliveries.html" class="nav-item">
+            <i class="fas fa-truck"></i>
+            <span>My Deliveries</span>
+        </a>
+        <a href="routes.html" class="nav-item">
+            <i class="fas fa-route"></i>
+            <span>Routes</span>
+        </a>
+        <a href="completed.html" class="nav-item active">
+            <i class="fas fa-check-circle"></i>
+            <span>Completed</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </button>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <div>
+            <h1>Completed Deliveries</h1>
+            <p class="date">View your delivery history and performance</p>
+        </div>
+        <div class="date">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date"></span>
+        </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="alertBox" class="alert" style="display: none; position: fixed; top: 80px; right: 30px; z-index: 1001; transition: all 0.5s ease-in-out;">
+        <i id="alertIcon" class="fas fa-exclamation-circle"></i>
+        <span id="alertMessage"></span>
+    </div>
+
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fas fa-check-double"></i>
+            </div>
+            <h3 id="total-completed">0</h3>
+            <p>Total Completed</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>All time</span>
+            </div>
+        </div>
+
+        <div class="stat-card blue">
+            <div class="stat-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3 id="this-month">0</h3>
+            <p>This Month</p>
+            <div class="trend up">
+                <i class="fas fa-arrow-up"></i>
+                <span>Current month</span>
+            </div>
+        </div>
+
+        <div class="stat-card purple">
+            <div class="stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h3 id="avg-rating">0.0</h3>
+            <p>Average Rating</p>
+            <div class="trend up">
+                <i class="fas fa-star"></i>
+                <span>Customer feedback</span>
+            </div>
+        </div>
+
+        <div class="stat-card orange">
+            <div class="stat-icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <h3 id="total-earnings">LKR 0.00</h3>
+            <p>Earnings (This Month)</p>
+            <div class="trend up">
+                <i class="fas fa-wallet"></i>
+                <span>This month</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completed Deliveries List -->
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>
+                <i class="fas fa-history"></i>
+                Delivery History
+            </h2>
+        </div>
+
+        <!-- Filter -->
+        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+            <input type="date" id="from-date" class="form-control" style="width: 200px; padding: 12px 15px;">
+            <input type="date" id="to-date" class="form-control" style="width: 200px; padding: 12px 15px;">
+            <button class="quick-action-btn blue" onclick="filterByDate()">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+
+        <!-- Deliveries Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Delivery ID</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Address</th>
+                    <th>Items</th>
+                    <th>Rating</th>
+                    <th>Earnings</th>
+                </tr>
+                </thead>
+                <!-- UPDATED: Added ID and loading row -->
+                <tbody id="completed-table-body">
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 40px;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 15px; color: #666;">Loading completed deliveries...</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="../js/config.js"></script>
+<script src="../js/avatar.js"></script>
+<script src="js/completed.js"></script>
+<script>
+    const bgAnimation = document.getElementById('bgAnimation');
+    const elements = ['pill', 'capsule', 'circle', 'plus', 'delivery-truck'];
+
+    for (let i = 0; i < 30; i++) {
+        const element = document.createElement('div');
+        element.className = `floating-element ${elements[Math.floor(Math.random() * elements.length)]}`;
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (15 + Math.random() * 10) + 's';
+        bgAnimation.appendChild(element);
+    }
+</script>
+</body>
+</html>
