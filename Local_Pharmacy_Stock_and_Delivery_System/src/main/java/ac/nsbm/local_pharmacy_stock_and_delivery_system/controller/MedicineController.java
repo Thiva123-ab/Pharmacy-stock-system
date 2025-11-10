@@ -19,14 +19,14 @@ public class MedicineController {
 
     public MedicineController(MedicineService service) { this.service = service; }
 
-    // GET /api/medicines (Allow all users, even unauthenticated, for browsing)
+    // GET method
     @GetMapping
     public ResponseEntity<Map<String, Object>> list(@RequestParam(defaultValue = "") String q, @PageableDefault(size = 20) Pageable pageable) {
         Page<Medicine> page = service.search(q, pageable);
         return ResponseEntity.ok(Map.of("success", true, "data", page.getContent()));
     }
 
-    // GET /api/medicines/{id} (For viewing details)
+    // GET method
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> get(@PathVariable Long id) {
         Medicine m = service.findById(id);
