@@ -190,7 +190,7 @@ public class UserController {
 
         return ResponseEntity.ok(Map.of("success", true, "message", "Password updated successfully"));
     }
-dev
+
     @PostMapping("/avatar")
     public ResponseEntity<?> uploadAvatar(@RequestBody Map<String, String> avatarData) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
