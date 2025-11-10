@@ -12,19 +12,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import ac.nsbm.local_pharmacy_stock_and_delivery_system.service.UserService;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,7 +26,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
 
 
     @GetMapping("/drivers")
@@ -182,14 +172,10 @@ public class UserController {
     }
 
 
-
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateDTO dto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-
-
-
 
 
         userService.updateProfile(email, dto);
@@ -197,8 +183,7 @@ public class UserController {
         return ResponseEntity.ok(Map.of("success", true, "message", "Profile updated successfully"));
     }
 
-
-        @PutMapping("/change-password")
+    @PutMapping("/change-password")
     public ResponseEntity<?> changePassword(@Valid @RequestBody PasswordChangeDTO dto) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -207,7 +192,7 @@ public class UserController {
 
         return ResponseEntity.ok(Map.of("success", true, "message", "Password updated successfully"));
     }
- 
+// Post method
     @PostMapping("/avatar")
     public ResponseEntity<?> uploadAvatar(@RequestBody Map<String, String> avatarData) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -217,3 +202,4 @@ public class UserController {
 
         return ResponseEntity.ok(Map.of("success", true, "message", "Avatar updated"));
     }
+}
