@@ -24,7 +24,13 @@ public class AppUser {
     private String password;
 
     @NotBlank
-    private String name; // Used for First Name + Last Name concatenation
+    private String name;
+
+    @NotBlank
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
 
 
     private String phone;
@@ -33,7 +39,12 @@ public class AppUser {
     private String status;
     private Integer totalOrders = 0;
 
-    // Fields primarily used for Delivery Person
+
+    private String bloodGroup;
+    private String allergies;
+    private String medicalConditions;
+
+
     private String vehicleType;
     private String vehicleNumber;
 
@@ -42,12 +53,26 @@ public class AppUser {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public @NotBlank String getFirstName(){
-        return this.name;
-    }
 
-    public @NotBlank String getLastName()
-    {
-        return this.name;
-    }
+
+
+    private String preferredLanguage;
+    private String preferredCurrency;
+    private Boolean preferredDarkMode;
+
+
+    private Boolean notifyEmailOrder;
+    private Boolean notifyEmailDelivery;
+    private Boolean notifyEmailPromo;
+    private Boolean notifyEmailReminders;
+
+
+    private Boolean notifySmsStatus;
+    private Boolean notifySmsDelivery;
+
+
+    private Boolean privacyDataCollection;
+    private Boolean privacyShareHealth;
+    private Boolean privacyMarketing;
+
 }
