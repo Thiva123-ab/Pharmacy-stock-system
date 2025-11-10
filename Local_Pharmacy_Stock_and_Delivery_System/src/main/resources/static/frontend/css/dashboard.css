@@ -1,3 +1,4 @@
+/* Dashboard Specific Styles */
 body {
     padding: 0;
     margin: 0;
@@ -699,6 +700,7 @@ table tr:hover {
     display: grid;
     gap: 15px;
 }
+
 .quick-action-btn {
     padding: 15px 20px;
     border-radius: 10px;
@@ -772,10 +774,12 @@ table tr:hover {
     background: #66bb6a;
     color: white;
 }
+
 .activity-icon.orange {
     background: #ff9800;
     color: white;
 }
+
 .activity-details h4 {
     font-size: 14px;
     color: #333;
@@ -823,6 +827,7 @@ table tr:hover {
     flex-direction: column;
     gap: 12px;
 }
+
 .chat-message {
     padding: 10px 15px;
     border-radius: 15px;
@@ -975,7 +980,7 @@ body.dark-mode .quick-action-btn.has-unread::after {
     color: #ffc107; /* Gold color */
 }
 
-
+/* Dark mode feedback */
 body.dark-mode .feedback-avatar {
     background: linear-gradient(135deg, #64b5f6, #29b6f6);
 }

@@ -13,7 +13,7 @@ body {
     position: relative;
 }
 
-
+/* Animated background elements */
 .background-animation {
     position: fixed;
     top: 0;
@@ -578,24 +578,29 @@ select.form-control {
     color: #6b7280;
 }
 
-
+/* Responsive */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
         max-width: 500px;
     }
+
     .info-panel {
         padding: 30px 20px;
     }
+
     .form-panel {
         padding: 30px 20px;
     }
+
     .form-row {
         grid-template-columns: 1fr;
     }
+
     .info-content h2 {
         font-size: 2rem;
     }
+
     .form-header h2 {
         font-size: 1.5rem;
     }
